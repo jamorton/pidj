@@ -85,7 +85,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
 }
 
 .search-list li {
@@ -104,19 +103,19 @@
 }
 
 #queue {
-  padding: 0px 100px;
+  padding: 0px 25px;
 }
 
 .queue-item {
   background-color: #f3f5ff;
-  border: 1px solid #aaa; /* #d3d8f5; */
+  border: 1px solid #aaa;
   border-radius: 7px;
   padding: 7px;
   margin-top: 5px;
 }
 .queue-item .user {
   text-align: right;
-  width: 175px;
+  width: 240px;
   line-height: 78px;
   font-weight: bold;
   color: #3B5998;
@@ -124,26 +123,34 @@
 }
 .queue-item .user span {
   padding-right: 6px;
+  white-space: nowrap;
 }
 .queue-item .user img {
   width: 60px;
   height: 60px;
 }
-
 .queue-item .album img {
   width:  80px;
   height: 80px;
   border-radius: 7px;
 }
-
 .queue-item .song-info {
   color: #000;
   margin-left: 10px;
   padding-top: 7px;
+  width: 500px;
 }
-
 .queue-item .song-info .title {
   font-size: 1.3em;
   padding: 5px 0px;
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.queue-item .song-info .other {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

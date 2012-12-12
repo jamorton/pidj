@@ -49,7 +49,6 @@ class Song(db.Model):
 			"added": self.added.isoformat(),
 			"status": self.status,
 			"finish": self.finish.isoformat(),
-			"now": datetime.datetime.now().isoformat()
 		}
 
 class Vote(db.Model):

@@ -26,7 +26,6 @@ def run_production(port):
 	app = SharedDataMiddleware(app, {
 			'/': os.path.join(os.path.dirname(__file__), 'static')
 	})
-
 	WSGIServer(('', port), app).serve_forever()
 
 def run(port):

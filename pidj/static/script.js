@@ -25,9 +25,14 @@ function loggedIn(auth) {
     setInterval(reloadQueue, 5000);
 }
 
+var oldQueue = "";
 function reloadQueue() {
     $.post("/ajax/queue", {}, function(response) {
-        putTpl("tpl-queue", "#queue", response);
+        var str = JSON.stringify(response);
+        if (str != oldQueue) {
+            oldQueue = str;
+            putTpl("tpl-queue", "#queue", response);
+        }
     });
 }
 

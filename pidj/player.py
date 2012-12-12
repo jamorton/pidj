@@ -6,7 +6,6 @@ from app import gs
 import datetime
 
 def log(s):
-	return
 	print s
 
 class Player(object):
