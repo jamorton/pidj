@@ -7,9 +7,9 @@ from util import api_route
 import requests
 import facebook
 
-def get_graph_api():
+def get_graph_api(reset = False):
 
-	if "fb_access_token" in session:
+	if not reset and "fb_access_token" in session:
 		return facebook.GraphAPI(session["fb_access_token"])
 
 	user = facebook.get_user_from_cookie(
@@ -56,7 +56,11 @@ def ajax_add():
 	if not graph:
 		return {"status": "error", "error": "no facebook user"}
 
-	profile = graph.get_object("me")
+	try:
+		profile = graph.get_object("me")
+	except facebook.GraphAPIError:
+		graph = get_graph_api(True)
+		profile = graph.get_object("me")
 
 	sinfo = gs.api("getSongsInfo", {"songIDs": [songid]})
 	songs = sinfo["result"]["songs"]

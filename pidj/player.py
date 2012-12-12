@@ -1,7 +1,7 @@
 
 from models import *
 import gevent
-from mpd import MPDClient
+from mpd import MPDClient, ConnectionError
 from app import gs
 import datetime
 
@@ -11,21 +11,29 @@ def log(s):
 
 class Player(object):
 	def __init__(self):
+		pass
+
+	def reconnect(self):
 		self.client = MPDClient()
-
-	def addSong(self, song):
-		if not gs.has_init:
-			gs.init()
-		r = gs.api("getSubscriberStreamKey", {"songID": song.song_id})
-		self.client.add(r["result"]["url"])
-		self.client.play()
-
-	def start(self):
-
 		self.client.connect(host="localhost", port="6600")
 		self.client.clear()
 		self.client.consume(1)
 
+	def addSong(self, song, redo = False):
+		if not gs.has_init:
+			gs.init()
+		r = gs.api("getSubscriberStreamKey", {"songID": song.song_id})
+		try:
+			self.client.add(r["result"]["url"])
+			self.client.play()
+		except ConnectionError:
+			if redo:
+				self.reconnect()
+				self.addSong(song, True)
+
+
+	def start(self):
+		self.reconnect()
 		curSong = None
 		curUpdated = False
 
@@ -57,9 +65,10 @@ class Player(object):
 					log("curUpdated = false")
 					s = self.client.status()
 
-					if "time" in s and s["playlistlength"] == "1":
+					if "time" in s and s["playlistlength"] == "1" and s["time"] != "0:0":
 
 						duration = int(s["time"].split(":")[1])
+						print s
 
 						curSong.duration = duration
 						curSong.status = STATUS_PLAYING
@@ -86,7 +95,7 @@ class Player(object):
 
 						gevent.sleep(4.0)
 					else:
-						gevent.sleep(4.0)
+						gevent.sleep(2.0)
 
 				else:
 
