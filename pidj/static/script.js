@@ -22,7 +22,7 @@ function loggedIn(auth) {
     userID = auth.userID;
     token = auth.accessToken;
     putTpl("tpl-main", "#content");
-    reloadQueue();
+    setInterval(reloadQueue, 5000);
 }
 
 function reloadQueue() {

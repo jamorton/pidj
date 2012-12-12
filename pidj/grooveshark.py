@@ -54,11 +54,3 @@ class Client(object):
 				"password": self.passw
 		})
 		self.has_init = True
-
-if __name__ == "__main__":
-	"""
-	c = Client()
-	c.init()
-
-	print c.api("getSongSearchResults", {"query": "lil wayne"})
-	"""

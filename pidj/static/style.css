@@ -62,17 +62,30 @@
 
 .song-buttons {
   padding-top: 7px;
+  margin-right: 5px;
   float: right;
 }
 
 .song-descr {
   padding-top: 5px;
   margin-left: 10px;
+  width: 380px;
 }
 
 .song-descr .title {
   font-weight: bold;
   font-size: 1.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.song-descr .other {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
 }
 
 .search-list li {

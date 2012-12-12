@@ -12,11 +12,14 @@ import models
 
 from gevent.pywsgi import WSGIServer
 from werkzeug.wsgi import SharedDataMiddleware
+from werkzeug.debug import DebuggedApplication
 
 import os
 
 def run_debug(port):
-	app.run(host="0.0.0.0", port=port)
+	global app
+	app = DebuggedApplication(app, evalex = True)
+	WSGIServer(('', port), app).serve_forever()
 
 def run_production(port):
 	global app
