@@ -1,5 +1,5 @@
 
-from app import db
+from app import app, db
 from peewee import *
 from pytz import timezone
 import datetime
@@ -8,7 +8,7 @@ __all__ = ["Song", "Vote", "create_tables", "STATUS_PLAYED", "STATUS_PLAYING", "
 
 STATUS_PLAYED, STATUS_PLAYING, STATUS_QUEUED = range(3)
 
-mytz = timezone("US/Central")
+mytz = timezone(app.config["TIMEZONE"])
 
 class Song(db.Model):
 	user_id = CharField(max_length = 15)

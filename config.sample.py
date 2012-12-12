@@ -14,6 +14,8 @@ GROOVESHARK_PASS = ""
 
 TINYSONG_KEY = ""
 
+TIMEZONE = "US/Central"
+
 DATABASE = {
 	'name': 'pidj.sqlite3',
 	'engine': 'peewee.SqliteDatabase',
