@@ -1,4 +1,5 @@
 
+
 var userID;
 var token;
 var compiledTemplates = {};
@@ -28,8 +29,7 @@ function loggedIn(auth) {
 var stInterval = null;
 var curSong = null;
 
-function updateTime()
-{
+function updateTime() {
     var seconds = Number(curSong.duration) - Math.round((curSong.finish - new Date()) / 1000);
     if (seconds >= curSong.duration) {
         clearInterval(stInterval);
@@ -44,7 +44,6 @@ function updateTime()
     $("#song-seconds").text(seconds);
 }
 
-
 var oldQueue = "";
 function reloadQueue() {
     $.post("/ajax/queue", {}, function(response) {
@@ -56,18 +55,20 @@ function reloadQueue() {
         putTpl("tpl-queue", "#queue", response);
 
         if (response.playing) {
+
             var song = response.playing;
             song.added = new Date(song.added);
             song.finish = new Date(song.finish);
+            if (Number(new Date()) > Number(song.finish))
+                return;
             var mins = Math.floor(Number(song.duration) / 60);
-            var secs = mins % 60;
+            var secs = song.duration % 60;
             if (secs < 10)
                 secs = "0" + secs;
             song.durationStr = mins + ":" + secs;
+            console.log(song);
             curSong = song;
             stInterval = setInterval(updateTime, 100);
-
-
             putTpl("tpl-playing", "#playing", song);
         }
 

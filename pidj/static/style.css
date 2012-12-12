@@ -2,7 +2,6 @@
 .header {
   margin-top: 10px;
 }
-
 .header h1 {
   font-size: 62px;
   line-height: 62px;
@@ -11,11 +10,13 @@
   text-align: center;
 }
 
+/************************
+ * SEARCH
+ ************************/
 .search {
   margin-top: 10px;
   text-align: center;
 }
-
 .search input.search-input {
   height: 40px;
   font-size: 25px;
@@ -25,11 +26,9 @@
   font-weight: 200;
   font-family: "Courier New", Courier, monospace;
 }
-
 .search-form {
   margin-bottom: 10px;
 }
-
 .search .btn {
   font-size: 20px;
   font-weight: 200;
@@ -38,42 +37,42 @@
   margin-left: 2px;
 }
 
+/************************
+ * LOGIN
+ ************************/
 .login-page {
   margin-top: 100px;
   text-align: center;
 }
-
 .login-page h1 {
   font-weight: normal;
   font-size: 80px;
   line-height: 80px;
 }
-
 .center {
   text-align: center;
 }
 
+/************************
+ * SEARCH MODAL
+ ************************/
 .search-list {
   margin-left: 0px;
   list-style-type: none;
 }
-
 .search-list li .album-image, .search-list li .song-descr {
   float: left;
 }
-
 .song-buttons {
   padding-top: 7px;
   margin-right: 5px;
   float: right;
 }
-
 .song-descr {
   padding-top: 5px;
   margin-left: 10px;
   width: 380px;
 }
-
 .song-descr .title {
   font-weight: bold;
   font-size: 1.2em;
@@ -81,33 +80,31 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .song-descr .other {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .search-list li {
   padding: 10px;
   color: #666;
   border-bottom: 1px solid #EEE;
 }
-
 #search-modal {
   width: 640px;
   margin-left: -320px;
 }
-
 #search-modal .modal-body {
   padding: 0px;
 }
 
+/************************
+ * SONG QUEUE
+ ************************/
 #queue {
   padding: 0px 25px;
 }
-
 .queue-item {
   background-color: #f3f5ff;
   border: 1px solid #aaa;
@@ -150,20 +147,22 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .queue-item .song-info .other {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/************************
+ * NOW PLAYING
+ ************************/
 #playing {
   margin: 0 auto;
   font-size: 1.2em;
   color: #444;
   padding-left: 75px;
+  margin-bottom: 15px;
 }
-
 #playing .np {
   color: #888;
   line-height: 40px;
@@ -179,7 +178,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-bottom: 5px;
+  line-height: 25px;
 }
 #playing .song-info .other {
   width: 100%;
@@ -187,4 +186,5 @@
 #playing .time {
   line-height: 40px;
   font-size: 1.2em;
+  margin-left: 15px;
 }
