@@ -1,11 +1,14 @@
 
 from app import db
 from peewee import *
+from pytz import timezone
 import datetime
 
 __all__ = ["Song", "Vote", "create_tables", "STATUS_PLAYED", "STATUS_PLAYING", "STATUS_QUEUED"]
 
 STATUS_PLAYED, STATUS_PLAYING, STATUS_QUEUED = range(3)
+
+mytz = timezone("US/Central")
 
 class Song(db.Model):
 	user_id = CharField(max_length = 15)
@@ -15,9 +18,11 @@ class Song(db.Model):
 	album_name = CharField()
 	album_id = IntegerField()
 	artist_name = CharField()
+
 	added = DateTimeField(default = datetime.datetime.now)
 	status = IntegerField(default = STATUS_QUEUED)
 	finish = DateTimeField(default = datetime.datetime.now)
+	duration = IntegerField(default = 0)
 
 	def __unicode__(self):
 		return self.song_name
@@ -46,9 +51,10 @@ class Song(db.Model):
 			"album_name": self.album_name,
 			"album_id": str(self.album_id),
 			"artist_name": self.artist_name,
-			"added": self.added.isoformat(),
+			"added": mytz.localize(self.added).isoformat(),
 			"status": self.status,
-			"finish": self.finish.isoformat(),
+			"finish": mytz.localize(self.finish).isoformat(),
+			"duration": self.duration
 		}
 
 class Vote(db.Model):

@@ -21,6 +21,9 @@
     </form>
   </div>
 
+  <div id="playing">
+  </div>
+
   <div id="queue">
     <p class="center"><img src="/static/loading.gif" /></p>
   </div>
@@ -79,6 +82,21 @@
       </div>
     </div>
   {{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="tpl-playing">
+  <div class="name-wrapper">
+    <div class="pull-left np">Now Playing:</div>
+    <div class="pull-left song-info">
+      <div class="title">{{song_name}}</div>
+      <div class="other">{{artist_name}}</div>
+    </div>
+  </div>
+  <div class="time pull-left">
+      <span id="song-minutes"></span>:<span id="song-seconds"></span>/{{durationStr}}
+  </div>
+  <div class="options pull-left">
+  </div>
 </script>
 
 {% endraw %}

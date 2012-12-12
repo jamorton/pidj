@@ -25,14 +25,52 @@ function loggedIn(auth) {
     setInterval(reloadQueue, 5000);
 }
 
+var stInterval = null;
+var curSong = null;
+
+function updateTime()
+{
+    var seconds = Number(curSong.duration) - Math.round((curSong.finish - new Date()) / 1000);
+    if (seconds >= curSong.duration) {
+        clearInterval(stInterval);
+        $("#playing").html("");
+        return;
+    }
+    var minutes = Math.round(seconds / 60);
+    seconds = seconds % 60;
+    if (seconds < 10)
+        seconds = "0" + seconds;
+    $("#song-minutes").text(minutes);
+    $("#song-seconds").text(seconds);
+}
+
+
 var oldQueue = "";
 function reloadQueue() {
     $.post("/ajax/queue", {}, function(response) {
         var str = JSON.stringify(response);
-        if (str != oldQueue) {
-            oldQueue = str;
-            putTpl("tpl-queue", "#queue", response);
+        if (str == oldQueue)
+            return;
+
+        oldQueue = str;
+        putTpl("tpl-queue", "#queue", response);
+
+        if (response.playing) {
+            var song = response.playing;
+            song.added = new Date(song.added);
+            song.finish = new Date(song.finish);
+            var mins = Math.round(Number(song.duration) / 60);
+            var secs = mins % 60;
+            if (secs < 10)
+                secs = "0" + secs;
+            song.durationStr = mins + ":" + secs;
+            curSong = song;
+            stInterval = setInterval(updateTime, 100);
+
+
+            putTpl("tpl-playing", "#playing", song);
         }
+
     });
 }
 

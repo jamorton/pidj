@@ -1,6 +1,6 @@
 
 .header {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .header h1 {
@@ -12,7 +12,7 @@
 }
 
 .search {
-  margin-top: 30px;
+  margin-top: 10px;
   text-align: center;
 }
 
@@ -21,11 +21,13 @@
   font-size: 25px;
   width: 500px;
   margin-bottom: 0;
-  vertical-align: middle;
   line-height: 40px;
-  vertical-align: middle;
   font-weight: 200;
   font-family: "Courier New", Courier, monospace;
+}
+
+.search-form {
+  margin-bottom: 10px;
 }
 
 .search .btn {
@@ -153,4 +155,36 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+#playing {
+  margin: 0 auto;
+  font-size: 1.2em;
+  color: #444;
+  padding-left: 75px;
+}
+
+#playing .np {
+  color: #888;
+  line-height: 40px;
+}
+#playing .song-info {
+  margin-left: 15px;
+  width: 500px;
+}
+#playing .song-info .title {
+  width: 100%;
+  font-size: 1.4em;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 5px;
+}
+#playing .song-info .other {
+  width: 100%;
+}
+#playing .time {
+  line-height: 40px;
+  font-size: 1.2em;
 }

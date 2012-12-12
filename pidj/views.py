@@ -38,7 +38,14 @@ def ajax_search():
 @api_route("queue")
 def ajax_queue():
 	q = Song.select().where(Song.status == STATUS_QUEUED).order_by(Song.added)
-	return {"songs": [s.serialize() for s in q]}
+	obj = {"songs": [s.serialize() for s in q]}
+
+	try:
+		obj["playing"] = Song.select().where(Song.status == STATUS_PLAYING).order_by(Song.added.desc()).get().serialize()
+	except Song.DoesNotExist:
+		pass
+
+	return obj
 
 @api_route("add")
 def ajax_add():
