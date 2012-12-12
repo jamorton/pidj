@@ -1,0 +1,136 @@
+
+.header {
+  margin-top: 30px;
+}
+
+.header h1 {
+  font-size: 62px;
+  line-height: 62px;
+  font-weight: 100;
+  width: 100%;
+  text-align: center;
+}
+
+.search {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.search input.search-input {
+  height: 40px;
+  font-size: 25px;
+  width: 500px;
+  margin-bottom: 0;
+  vertical-align: middle;
+  line-height: 40px;
+  vertical-align: middle;
+  font-weight: 200;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.search .btn {
+  font-size: 20px;
+  font-weight: 200;
+  width: 125px;
+  height: 50px;
+  margin-left: 2px;
+}
+
+.login-page {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.login-page h1 {
+  font-weight: normal;
+  font-size: 80px;
+  line-height: 80px;
+}
+
+.center {
+  text-align: center;
+}
+
+.search-list {
+  margin-left: 0px;
+  list-style-type: none;
+}
+
+.search-list li .album-image, .search-list li .song-descr {
+  float: left;
+}
+
+.song-buttons {
+  padding-top: 7px;
+  float: right;
+}
+
+.song-descr {
+  padding-top: 5px;
+  margin-left: 10px;
+}
+
+.song-descr .title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.search-list li {
+  padding: 10px;
+  color: #666;
+  border-bottom: 1px solid #EEE;
+}
+
+#search-modal {
+  width: 640px;
+  margin-left: -320px;
+}
+
+#search-modal .modal-body {
+  padding: 0px;
+}
+
+#queue {
+  padding: 0px 100px;
+}
+
+.queue-item {
+  background-color: #f3f5ff;
+  border: 1px solid #aaa; /* #d3d8f5; */
+  border-radius: 7px;
+  padding: 7px;
+  margin-top: 5px;
+}
+.queue-item .user {
+  text-align: right;
+  width: 175px;
+  line-height: 78px;
+  font-weight: bold;
+  color: #3B5998;
+  padding-right: 10px;
+}
+.queue-item .user span {
+  padding-right: 6px;
+}
+.queue-item .user img {
+  width: 60px;
+  height: 60px;
+}
+
+.queue-item .album img {
+  width:  80px;
+  height: 80px;
+  border-radius: 7px;
+}
+
+.queue-item .song-info {
+  color: #000;
+  margin-left: 10px;
+  padding-top: 7px;
+}
+
+.queue-item .song-info .title {
+  font-size: 1.3em;
+  padding: 5px 0px;
+  font-weight: bold;
+}

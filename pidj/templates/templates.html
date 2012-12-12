@@ -1,0 +1,84 @@
+{% raw %}
+
+<!-- TEMPLATE: login -->
+<script type="text/x-handlebars-template" id="tpl-login">
+  <div class="login-page">
+    <h1>Rosenberry DJ</h1>
+    <button id="login-btn" class="btn btn-primary btn-large">Login with Facebook</button>
+  </div>
+</script>
+
+<!-- TEMPLATE: main -->
+<script type="text/x-handlebars-template" id="tpl-main">
+  <div class="header">
+    <h1>DJ DAT SHIT YO</h1>
+  </div>
+
+  <div class="search">
+    <form id="search-form">
+      <input type="text" class="search-input" placeholder="Search for a song..." />
+      <input type="submit" class="btn btn-primary btn-large" value="Search"/>
+    </form>
+  </div>
+
+  <div id="queue">
+    <p class="center"><img src="/static/loading.gif" /></p>
+  </div>
+
+  <div id="search-modal" class="modal hide fade" role="dialog" tabindex="-1">
+  </div>
+</script>
+
+<!-- TEMPLATE: modal -->
+<script type="text/x-handlebars-template" id="tpl-modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Search: &ldquo;{{ query }}&rdquo;</h3>
+  </div>
+  <div class="modal-body">
+    <ul class="search-list">
+      <p class="center"><img src="/static/loading.gif" /></p>
+    </ul>
+  </div>
+</script>
+
+<!-- TEMPLATE: searchlist -->
+<script type="text/x-handlebars-template" id="tpl-searchlist">
+  {{#each songs}}
+    <li class="clearfix">
+      <div class="album-image">
+        <img src="http://images.grooveshark.com/static/albums/80_{{AlbumID}}.jpg" style="width: 50px; height: 50px;" />
+      </div>
+      <div class="song-descr">
+        <div class="title">{{SongName}}</div>
+        <div class="other">{{ArtistName}}&nbsp;•&nbsp;{{AlbumName}}</div>
+      </div>
+      <div class="song-buttons">
+        <button class="btn btn-info song-add-button" data-id="{{id}}">Add</button>
+        <a href="{{Url}}" rel="external" class="btn">Preview</a>
+      </div>
+    </li>
+  {{/each}}
+</script>
+
+<!-- TEMPLATE: queue -->
+<script type="text/x-handlebars-template" id="tpl-queue">
+  {{#each songs}}
+    <div class="queue-item clearfix">
+      <div class="user pull-right">
+        <span>{{user_name}}</span>
+        <img src="http://graph.facebook.com/{{user_id}}/picture" />
+
+      </div>
+      <div class="album pull-left">
+        <img src="http://images.grooveshark.com/static/albums/80_{{album_id}}.jpg" />
+      </div>
+      <div class="song-info pull-left">
+        <div class="title">{{song_name}}</div>
+        <div class="other">{{artist_name}}&nbsp;•&nbsp;{{album_name}}</div>
+      </div>
+    </div>
+  {{/each}}
+</script>
+
+{% endraw %}
