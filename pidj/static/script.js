@@ -36,7 +36,7 @@ function updateTime()
         $("#playing").html("");
         return;
     }
-    var minutes = Math.round(seconds / 60);
+    var minutes = Math.floor(seconds / 60);
     seconds = seconds % 60;
     if (seconds < 10)
         seconds = "0" + seconds;
@@ -59,7 +59,7 @@ function reloadQueue() {
             var song = response.playing;
             song.added = new Date(song.added);
             song.finish = new Date(song.finish);
-            var mins = Math.round(Number(song.duration) / 60);
+            var mins = Math.floor(Number(song.duration) / 60);
             var secs = mins % 60;
             if (secs < 10)
                 secs = "0" + secs;
