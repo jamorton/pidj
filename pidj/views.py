@@ -26,7 +26,7 @@ def get_graph_api(reset = False):
 
 
 @app.route('/')
-def hello_world():
+def index():
 	return render_template("index.html", app_id = app.config["FACEBOOK_APP_ID"])
 
 @api_route("search")

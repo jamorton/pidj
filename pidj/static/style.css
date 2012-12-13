@@ -127,6 +127,7 @@
 .queue-item .user img {
   width: 60px;
   height: 60px;
+  border-radius: 7px;
 }
 .queue-item .album img {
   width:  80px;
@@ -136,7 +137,7 @@
 .queue-item .song-info {
   color: #000;
   margin-left: 10px;
-  padding-top: 7px;
+  padding-top: 12px;
   width: 500px;
 }
 .queue-item .song-info .title {
@@ -165,7 +166,7 @@
 }
 #playing .np {
   color: #888;
-  line-height: 40px;
+  line-height: 48px;
 }
 #playing .song-info {
   margin-left: 15px;
@@ -178,13 +179,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  line-height: 25px;
+  line-height: 28px;
 }
 #playing .song-info .other {
   width: 100%;
 }
 #playing .time {
-  line-height: 40px;
+  line-height: 48px;
   font-size: 1.2em;
   margin-left: 15px;
 }
