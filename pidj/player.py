@@ -1,21 +1,71 @@
 
 from models import *
 import gevent
-from mpd import MPDClient, ConnectionError
 from app import gs
 import datetime
+from gevent import socket
 
 def log(s):
 	return
 	print s
 
+class MPDClient(object):
+	def __init__(self):
+		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+	def connect(self, host, port):
+		self.socket.connect((host, int(port)))
+		self.read_until("\n")
+
+	def read_until(self, delim):
+		data = ""
+		while 1:
+			data += self.socket.recv(1024)
+			if data.endswith(delim):
+				return data[:-len(delim)]
+
+	def status(self):
+		self.socket.send("status\n")
+		data = self.read_until("OK\n")
+		d = {}
+		for line in data.split("\n"):
+			i = line.split(": ")
+			if len(i) < 2:
+				continue
+			d[i[0]] = i[1]
+		return d
+
+	def clear(self):
+		self.socket.send("clear\n")
+		self.read_until("OK\n")
+
+	def consume(self, v):
+		self.socket.send("consume " + str(v) + "\n")
+		self.read_until("OK\n")
+
+	def play(self):
+		self.socket.send("play\n")
+		self.read_until("OK\n")
+
+	def add(self, song):
+		self.socket.send("add " + song + "\n")
+		self.read_until("OK\n")
+
+	def close(self):
+		try:
+			self.socket.close()
+		except:
+			pass
+
 class Player(object):
 	def __init__(self):
-		pass
+		self.client = None
 
 	def reconnect(self):
+		if self.client:
+			self.client.close()
 		self.client = MPDClient()
-		self.client.connect(host="localhost", port="6600")
+		self.client.connect("localhost", "6600")
 		self.client.clear()
 		self.client.consume(1)
 
@@ -30,7 +80,6 @@ class Player(object):
 			if redo:
 				self.reconnect()
 				self.addSong(song, True)
-
 
 	def start(self):
 		self.reconnect()
@@ -105,3 +154,8 @@ class Player(object):
 def start():
 	p = Player()
 	return gevent.spawn(p.start)
+
+if __name__ == "__main__":
+	m = MPDClient()
+	m.connect("localhost", "6600")
+	print m.status()
