@@ -1,7 +1,7 @@
 
 # PiDJ
 
-A crowd-sourced DJ platform that allows anyone in ther room to search for
+A crowd-sourced DJ platform that allows anyone in the room to search for
 and queue up songs.
 
 Users visit a flask-powered website and can search (using the Grooveshark
