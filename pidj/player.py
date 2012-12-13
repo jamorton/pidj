@@ -12,20 +12,48 @@ def log(s):
 class MPDClient(object):
 	def __init__(self):
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.host = None
+		self.port = None
 
-	def connect(self, host, port):
-		self.socket.connect((host, int(port)))
+	def close(self):
+		try:
+			self.socket.close()
+		except:
+			pass
+
+	def _reconn(self):
+		self.socket.connect((self.host, self.port))
 		self.read_until("\n")
+
+	def _tryfunc(self, f, *args, **kwargs):
+		try:
+			return f(*args, **kwargs)
+		except IOError:
+			self.close()
+			self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			self._reconn()
+			return f(*args, **kwargs)
+
+	def connect(self, host = "localhost", port = 6600):
+		self.host = host
+		self.port = int(port)
+		self._reconn()
+
+	def send(self, msg):
+		return self._tryfunc(self.socket.send, msg)
+
+	def recv(self, amt):
+		return self._tryfunc(self.socket.recv, amt)
 
 	def read_until(self, delim):
 		data = ""
 		while 1:
-			data += self.socket.recv(1024)
+			data += self.recv(1024)
 			if data.endswith(delim):
 				return data[:-len(delim)]
 
 	def status(self):
-		self.socket.send("status\n")
+		self.send("status\n")
 		data = self.read_until("OK\n")
 		d = {}
 		for line in data.split("\n"):
@@ -36,26 +64,20 @@ class MPDClient(object):
 		return d
 
 	def clear(self):
-		self.socket.send("clear\n")
+		self.send("clear\n")
 		self.read_until("OK\n")
 
 	def consume(self, v):
-		self.socket.send("consume " + str(v) + "\n")
+		self.send("consume " + str(v) + "\n")
 		self.read_until("OK\n")
 
 	def play(self):
-		self.socket.send("play\n")
+		self.send("play\n")
 		self.read_until("OK\n")
 
 	def add(self, song):
-		self.socket.send("add " + song + "\n")
+		self.send("add " + song + "\n")
 		self.read_until("OK\n")
-
-	def close(self):
-		try:
-			self.socket.close()
-		except:
-			pass
 
 class Player(object):
 	def __init__(self):
@@ -65,21 +87,23 @@ class Player(object):
 		if self.client:
 			self.client.close()
 		self.client = MPDClient()
-		self.client.connect("localhost", "6600")
+		self.client.connect()
 		self.client.clear()
 		self.client.consume(1)
 
-	def addSong(self, song, redo = False):
+	def addSongInner(self, r):
+		self.client.add(r["result"]["url"])
+		self.client.play()
+
+	def addSong(self, song):
 		if not gs.has_init:
 			gs.init()
 		r = gs.api("getSubscriberStreamKey", {"songID": song.song_id})
 		try:
-			self.client.add(r["result"]["url"])
-			self.client.play()
+			self.addSongInner(r)
 		except ConnectionError:
-			if redo:
-				self.reconnect()
-				self.addSong(song, True)
+			self.reconnect()
+			self.addSongInner(r)
 
 	def start(self):
 		self.reconnect()
@@ -91,8 +115,6 @@ class Player(object):
 			sp.delete()
 
 		while 1:
-
-			log("loop")
 
 			if curSong == None:
 				log("curSong == none")
@@ -147,7 +169,6 @@ class Player(object):
 						gevent.sleep(2.0)
 
 				else:
-
 					log("curUpdated = true")
 					gevent.sleep(5.0)
 
